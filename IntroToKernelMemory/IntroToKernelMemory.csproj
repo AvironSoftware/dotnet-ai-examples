@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.KernelMemory.AI.OpenAI" Version="0.97.250211.1" />
+      <PackageReference Include="Microsoft.KernelMemory.Service.AspNetCore" Version="0.97.250211.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="file1-Wikipedia-Carbon.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="file2-Wikipedia-Moon.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>
