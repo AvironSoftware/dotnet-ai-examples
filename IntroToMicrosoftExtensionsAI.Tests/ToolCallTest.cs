@@ -36,13 +36,13 @@ public class ToolCallTest
         
         //act
         var response = await chatClient.GetResponseAsync(message, chatOptions);
-        _outputHelper.WriteLine(response.Message.Text);
+        _outputHelper.WriteLine(response.Text);
 
         //assert
         restaurantPlugin.Verify(x => x.GetRestaurantsAvailableToBook(), Times.Once);
         
         //do you want to take it this far...?
-        Assert.Contains("Bob Evans", response.Message.Text);
+        Assert.Contains("Bob Evans", response.Text);
     }
 }
 

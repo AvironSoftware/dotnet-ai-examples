@@ -14,7 +14,7 @@ public static class ChatClientFactory
         var client = new OpenAIClient(openAIApiKey);
 
         //where we get our chat client
-        var chatClient = client.AsChatClient(model)    //NOTE: there is a GetChatClient but that is not the same!
+        IChatClient chatClient = client.AsChatClient(model)    //NOTE: there is a GetChatClient but that is not the same!
             .AsBuilder()
             .UseFunctionInvocation()
             .Build();

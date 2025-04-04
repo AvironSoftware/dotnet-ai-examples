@@ -31,9 +31,9 @@ while (true)
     chatHistory.Add(new ChatMessage(ChatRole.User, line));
 
     var response = await chatClient.GetResponseAsync(chatHistory, chatOptions);
-    var chatResponse = response.Message;
+    var chatResponse = response.Text;
 
-    Console.WriteLine(response.Message);
-    chatHistory.Add(chatResponse);
+    Console.WriteLine(chatResponse);
+    chatHistory.Add(new ChatMessage(ChatRole.Assistant, chatResponse));
 }
 
