@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntroToKernelMemory", "Intr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntroToMicrosoftExtensionsAI.Tests", "IntroToMicrosoftExtensionsAI.Tests\IntroToMicrosoftExtensionsAI.Tests.csproj", "{98E9A2BA-BD9F-462D-96E8-2013107CDD12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntroToModelContextProtocol.Server", "IntroToModelContextProtocol.Server\IntroToModelContextProtocol.Server.csproj", "{0CB4A372-BD56-45E6-90C1-406249630FBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntroToModelContextProtocol.Client", "IntroToModelContextProtocol.Client\IntroToModelContextProtocol.Client.csproj", "{3DC6BD13-145E-4383-84DB-05AF80358DAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +58,13 @@ Global
 		{98E9A2BA-BD9F-462D-96E8-2013107CDD12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98E9A2BA-BD9F-462D-96E8-2013107CDD12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98E9A2BA-BD9F-462D-96E8-2013107CDD12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CB4A372-BD56-45E6-90C1-406249630FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CB4A372-BD56-45E6-90C1-406249630FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CB4A372-BD56-45E6-90C1-406249630FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CB4A372-BD56-45E6-90C1-406249630FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC6BD13-145E-4383-84DB-05AF80358DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC6BD13-145E-4383-84DB-05AF80358DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC6BD13-145E-4383-84DB-05AF80358DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC6BD13-145E-4383-84DB-05AF80358DAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

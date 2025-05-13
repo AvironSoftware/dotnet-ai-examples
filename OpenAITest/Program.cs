@@ -1,6 +1,6 @@
 ﻿using OpenAI.Chat;
 
-var openAIApiKey = "";
+var openAIApiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
 var client = new ChatClient("gpt-4o", openAIApiKey);
 
 var messages = new List<ChatMessage>

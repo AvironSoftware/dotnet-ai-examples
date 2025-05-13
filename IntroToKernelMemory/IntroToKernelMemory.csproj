@@ -8,8 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.KernelMemory.AI.OpenAI" Version="0.97.250211.1" />
-      <PackageReference Include="Microsoft.KernelMemory.Service.AspNetCore" Version="0.97.250211.1" />
+      <PackageReference Include="Microsoft.KernelMemory.AI.OpenAI" Version="0.98.250508.3" />
+      <PackageReference Include="Microsoft.KernelMemory.Service.AspNetCore" Version="0.98.250508.3" />
     </ItemGroup>
 
     <ItemGroup>

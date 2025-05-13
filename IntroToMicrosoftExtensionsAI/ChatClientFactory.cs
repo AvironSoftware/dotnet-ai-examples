@@ -14,11 +14,12 @@ public static class ChatClientFactory
         var client = new OpenAIClient(openAIApiKey);
 
         //where we get our chat client
-        IChatClient chatClient = client.AsChatClient(model)    //NOTE: there is a GetChatClient but that is not the same!
+        IChatClient chatClient = client
+            .GetChatClient(model)
+            .AsIChatClient()    //NOTE: there is a GetChatClient but that is not the same!
             .AsBuilder()
             .UseFunctionInvocation()
             .Build();
-
         
         return chatClient;
     }
