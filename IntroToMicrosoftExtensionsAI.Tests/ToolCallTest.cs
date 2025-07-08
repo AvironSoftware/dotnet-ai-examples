@@ -34,9 +34,10 @@ public class ToolCallTest
             ],
         };
         
+        _outputHelper.WriteLine("Question: " + message);
         //act
         var response = await chatClient.GetResponseAsync(message, chatOptions);
-        _outputHelper.WriteLine(response.Text);
+        _outputHelper.WriteLine("Answer: " + response.Text);
 
         //assert
         restaurantPlugin.Verify(x => x.GetRestaurantsAvailableToBook(), Times.Once);
