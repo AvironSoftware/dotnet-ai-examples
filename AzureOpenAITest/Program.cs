@@ -1,9 +1,11 @@
-﻿
+
 using System.ClientModel;
 using Azure.AI.OpenAI;
 using OpenAI.Chat;
 
+Console.ForegroundColor = ConsoleColor.Cyan;
 Console.WriteLine("Welcome to the Azure OpenAI Test!");
+Console.ResetColor();
 
 var deploymentName = "";
 var endpointUrl = "";
@@ -22,7 +24,9 @@ var messages = new List<ChatMessage>
 
 while (true)
 {
+    Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine("Say something to Azure OpenAI please!");
+    Console.ResetColor();
     var line = Console.ReadLine();
 
     if (line == "exit")
@@ -35,6 +39,8 @@ while (true)
     var response = await chatClient.CompleteChatAsync(messages);
     var chatResponse = response.Value.Content.Last().Text;
 
+    Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine(chatResponse);
+    Console.ResetColor();
     messages.Add(new AssistantChatMessage(chatResponse));
 }

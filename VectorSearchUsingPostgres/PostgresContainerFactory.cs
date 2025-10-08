@@ -22,7 +22,9 @@ public static class PostgresContainerFactory
         
         string connectionString = postgresContainer.GetConnectionString();
 
+        Console.ForegroundColor = ConsoleColor.Magenta;
         Console.WriteLine($"Database started at: {connectionString}");
+        Console.ResetColor();
 
         // Apply migrations and extensions
         await dbContext.Database.ExecuteSqlAsync($"CREATE EXTENSION vector");

@@ -16,7 +16,9 @@ var dbContext = postgresContainer.GetDbContext();
 
 Console.WriteLine();
 Console.WriteLine();
+Console.ForegroundColor = ConsoleColor.Cyan;
 Console.WriteLine("Ask a question that searches our knowledge base!");
+Console.ResetColor();
 var text = Console.ReadLine();
 
 var embedding = await embeddingClient.GenerateEmbeddingAsync(text);
@@ -37,14 +39,22 @@ var allRecords = await dbContext.Vectors
 var nearest = allRecords.First().Record;
 
 Console.WriteLine();
+Console.ForegroundColor = ConsoleColor.Yellow;
 Console.WriteLine($"*** Closest match: {nearest.Name} (similarity score: {allRecords.First().CosineDistance}) ***");
+Console.ResetColor();
+Console.ForegroundColor = ConsoleColor.Green;
 Console.WriteLine($"Contents: {nearest.Contents}");
+Console.ResetColor();
 
 Console.WriteLine();
+Console.ForegroundColor = ConsoleColor.Blue;
 Console.WriteLine("*** All matches and their similiarity scores (closer to 0 means more relevant): ***");
+Console.ResetColor();
 foreach (var record in allRecords.Skip(1))
 {
+    Console.ForegroundColor = ConsoleColor.Gray;
     Console.WriteLine($"{record.Record.Name} - {record.CosineDistance}");
+    Console.ResetColor();
 }
 Console.WriteLine();
 

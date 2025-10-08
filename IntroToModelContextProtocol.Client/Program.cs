@@ -13,10 +13,14 @@ var clientTransport = new SseClientTransport(new SseClientTransportOptions
 var mcpClient = await McpClientFactory.CreateAsync(clientTransport);
 var tools = await mcpClient.ListToolsAsync();
 
+Console.ForegroundColor = ConsoleColor.Blue;
 Console.WriteLine("The following tools are available from MCP:");
+Console.ResetColor();
 foreach (var tool in tools)
 {
+    Console.ForegroundColor = ConsoleColor.Gray;
     Console.WriteLine($"  Tool: {tool.Name}");
+    Console.ResetColor();
 }
 
 var chatClient = ChatClientFactory.CreateChatClient();
@@ -31,7 +35,9 @@ var chatOptions = new ChatOptions
     ]
 };
 
+Console.ForegroundColor = ConsoleColor.Cyan;
 Console.WriteLine("Say something to OpenAI and book your restaurant!");
+Console.ResetColor();
 
 while (true)
 {
@@ -46,6 +52,8 @@ while (true)
     var response = await chatClient.GetResponseAsync(chatHistory, chatOptions);
     var chatResponse = response.Text;
 
+    Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine(chatResponse);
+    Console.ResetColor();
     chatHistory.Add(new ChatMessage(ChatRole.Assistant, chatResponse));
 }

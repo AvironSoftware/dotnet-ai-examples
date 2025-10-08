@@ -1,8 +1,6 @@
-using IntroToSemanticKernel;
-using Microsoft.EntityFrameworkCore;
 using Testcontainers.PostgreSql;
 
-namespace VectorSearchUsingPostgres;
+namespace IntroToAgentFramework;
 
 public static class PostgresContainerFactory
 {

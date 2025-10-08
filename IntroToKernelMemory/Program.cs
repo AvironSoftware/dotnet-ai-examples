@@ -19,11 +19,15 @@ await memory.ImportDocumentAsync(document);
 
 while (!await memory.IsDocumentReadyAsync("doc01"))
 {
+    Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine("Waiting for memory ingestion to complete...");
+    Console.ResetColor();
     await Task.Delay(TimeSpan.FromMilliseconds(1500));
 }
 
+Console.ForegroundColor = ConsoleColor.Cyan;
 Console.WriteLine("Ask me something or type exit to quit:");
+Console.ResetColor();
 
 while (true)
 {
@@ -34,5 +38,7 @@ while (true)
     }
 
     var response = await memory.AskAsync(question);
+    Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine($"* Ask response: {response}");
+    Console.ResetColor();
 }

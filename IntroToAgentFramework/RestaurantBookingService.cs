@@ -1,18 +1,18 @@
 using System.ComponentModel;
-using Microsoft.SemanticKernel;
+using Microsoft.Extensions.AI;
 
-namespace IntroToSemanticKernel;
+namespace IntroToAgentFramework;
 
-public class RestaurantBookingPlugin
+public class RestaurantBookingService
 {
     private readonly RestaurantDbContext _dbContext;
 
-    public RestaurantBookingPlugin(RestaurantDbContext dbContext)
+    public RestaurantBookingService(RestaurantDbContext dbContext)
     {
         _dbContext = dbContext;
     }
     
-    [KernelFunction("get_restaurants_available_to_book")]
+    [Description("Gets a list of restaurants available to book.")]
     public string[] GetRestaurantsAvailableToBook()
     {
         return
@@ -24,14 +24,11 @@ public class RestaurantBookingPlugin
         ];
     }
     
-    [KernelFunction("book_restaurant")]
-    [Description("""
-                 Used to book a restaurant for a specific date/time.
-                 """)]
+    [Description("Used to book a restaurant for a specific date/time.")]
     public string BookRestaurant(
-        [Description("")]
+        [Description("The name of the restaurant to book.")]
         string restaurantName, 
-        
+        [Description("The date and time of the reservation in UTC.")]
         DateTime reservationDateTimeUtc)
     {
         var booking = new RestaurantBooking
@@ -45,9 +42,19 @@ public class RestaurantBookingPlugin
         return $"Booked {restaurantName} for {reservationDateTimeUtc}";
     }
     
-    [KernelFunction("get_booked_restaurants")]
+    [Description("Gets a list of all booked restaurants.")]
     public RestaurantBooking[] GetBookedRestaurants()
     {
         return _dbContext.RestaurantBookings.ToArray();
+    }
+
+    public AITool[] AsAITools()
+    {
+        return
+        [
+            AIFunctionFactory.Create(GetBookedRestaurants, name: "get_booked_restaurants"),
+            AIFunctionFactory.Create(GetRestaurantsAvailableToBook, name: "get_restaurants_available_to_book"),
+            AIFunctionFactory.Create(BookRestaurant, name: "book_restaurant")
+        ];
     }
 }
