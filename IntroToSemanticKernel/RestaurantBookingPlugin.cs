@@ -29,7 +29,7 @@ public class RestaurantBookingPlugin
                  Used to book a restaurant for a specific date/time.
                  """)]
     public string BookRestaurant(
-        [Description("")]
+        [Description("The name of the restaurant to book.")]
         string restaurantName, 
         
         DateTime reservationDateTimeUtc)

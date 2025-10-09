@@ -17,7 +17,7 @@ using var tracerProvider = Sdk.CreateTracerProviderBuilder()
 var services = new ServiceCollection();
 services.AddSingleton(postgresContainer.GetDbContext());
 services.AddScoped<RestaurantBookingService>();
-services.AddScoped(sp =>
+services.AddScoped<AIAgent>(sp =>
 {
     var db = sp.GetRequiredService<RestaurantDbContext>();
     var service = new RestaurantBookingService(db);
