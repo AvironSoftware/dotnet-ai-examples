@@ -1,16 +1,14 @@
 ﻿using IntroToMicrosoftExtensionsAI;
 using Microsoft.Extensions.AI;
 using ModelContextProtocol.Client;
-using ModelContextProtocol.Protocol.Transport;
 
 //setup the MCP client
-var clientTransport = new SseClientTransport(new SseClientTransportOptions
+var clientTransport = new HttpClientTransport(new HttpClientTransportOptions
 {
-    Name = "Restaurant",
-    Endpoint = new Uri("http://localhost:5261/sse")
+    Endpoint = new Uri("http://localhost:5261/mcp")
 });
 
-var mcpClient = await McpClientFactory.CreateAsync(clientTransport);
+var mcpClient = await McpClient.CreateAsync(clientTransport);
 var tools = await mcpClient.ListToolsAsync();
 
 Console.ForegroundColor = ConsoleColor.Blue;
