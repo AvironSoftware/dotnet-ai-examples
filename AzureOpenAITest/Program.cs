@@ -7,9 +7,9 @@ Console.ForegroundColor = ConsoleColor.Cyan;
 Console.WriteLine("Welcome to the Azure OpenAI Test!");
 Console.ResetColor();
 
-var deploymentName = "";
-var endpointUrl = "";
-var key = "";
+var deploymentName = Environment.GetEnvironmentVariable("TEST_AZUREOPENAI_DEPLOYMENT_NAME");
+var endpointUrl =  Environment.GetEnvironmentVariable("TEST_AZUREOPENAI_ENDPOINTURL");
+var key =  Environment.GetEnvironmentVariable("TEST_AZUREOPENAI_KEY");
 
 var client = new AzureOpenAIClient(
     new Uri(endpointUrl),

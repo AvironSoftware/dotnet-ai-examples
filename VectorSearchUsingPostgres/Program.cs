@@ -8,7 +8,7 @@ using VectorSearchUsingPostgres;
 //NOTE: you must have Docker installed and running to run this sample
 
 var openAiClient = new OpenAIClient(Environment.GetEnvironmentVariable("OPENAI_API_KEY"));
-var embeddingClient = openAiClient.AsEmbeddingGenerator("text-embedding-3-small");
+var embeddingClient = openAiClient.GetEmbeddingClient("text-embedding-3-small").AsIEmbeddingGenerator();
 
 //start container and get DbContext
 var postgresContainer = await PostgresContainerFactory.GetPostgresContainerAsync();
@@ -21,10 +21,10 @@ Console.WriteLine("Ask a question that searches our knowledge base!");
 Console.ResetColor();
 var text = Console.ReadLine();
 
-var embedding = await embeddingClient.GenerateEmbeddingAsync(text);
+var embeddings = await embeddingClient.GenerateAsync([text!]);
 
 // Fetch closest match using cosine distance
-var queryVector = new Vector(embedding.Vector);
+var queryVector = new Vector(embeddings[0].Vector.ToArray());
 
 // ReSharper disable once EntityFramework.NPlusOne.IncompleteDataQuery
 var allRecords = await dbContext.Vectors

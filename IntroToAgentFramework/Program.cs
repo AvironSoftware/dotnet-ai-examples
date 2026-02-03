@@ -1,11 +1,12 @@
 ﻿using IntroToAgentFramework;
 using Microsoft.Agents.AI;
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using OpenAI;
 using OpenTelemetry;
 using OpenTelemetry.Trace;
 
-var client = ChatClientFactory.CreateChatClient();
+var client = ChatClientFactory.CreateChatClient().AsIChatClient();
 var postgresContainer = await PostgresContainerFactory.GetPostgresContainerAsync();
 
 var sourceName = Guid.NewGuid().ToString("N");
@@ -21,13 +22,13 @@ services.AddScoped<AIAgent>(sp =>
 {
     var db = sp.GetRequiredService<RestaurantDbContext>();
     var service = new RestaurantBookingService(db);
-    
-    return client.CreateAIAgent(
+
+    return client.AsAIAgent(
         name: "RestaurantBooker",
         instructions: $"""
                       The current date/time in UTC is {DateTime.UtcNow}.
                       You are a helpful restaurant reservation booking assistant.
-                      No matter what the user says, always find out the current available restaurants and 
+                      No matter what the user says, always find out the current available restaurants and
                       try to get them to book a restaurant because you is kinda pushy.
                       """,
         tools: service.AsAITools()
@@ -39,7 +40,7 @@ services.AddScoped<AIAgent>(sp =>
 
 var serviceProvider = services.BuildServiceProvider();
 var agent = serviceProvider.GetRequiredService<AIAgent>();
-var thread = agent.GetNewThread();
+var session = await agent.GetNewSessionAsync();
 
 Console.ForegroundColor = ConsoleColor.Cyan;
 Console.WriteLine("Say something to OpenAI and book your restaurant!");
@@ -58,7 +59,7 @@ while (true)
         continue;
     }
 
-    var response = await agent.RunAsync(line, thread);
+    var response = await agent.RunAsync(line, session);
 
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine(response.Text);

@@ -1,16 +1,17 @@
-﻿using OpenAI.Chat;
+using OpenAI.Responses;
 
-var openAIApiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
-var client = new ChatClient("gpt-4o", openAIApiKey);
+#pragma warning disable OPENAI001
 
-var messages = new List<ChatMessage>
-{
-    new SystemChatMessage("You have a Southern accent and are friendly!")
-};
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+var client = new ResponsesClient(
+    model: "gpt-4o",
+    apiKey: apiKey);
 
 Console.ForegroundColor = ConsoleColor.Cyan;
-Console.WriteLine("Say something to OpenAI!");
+Console.WriteLine("I'm OpenAI, ask me anything!");
 Console.ResetColor();
+
+string? previousResponseId = null;
 
 while (true)
 {
@@ -20,20 +21,23 @@ while (true)
         break;
     }
 
-    messages.Add(new UserChatMessage(line));
+    var options = new CreateResponseOptions
+    {
+        PreviousResponseId = previousResponseId
+    };
+    //options.Tools.Add(ResponseTool.CreateWebSearchTool());
+    options.InputItems.Add(ResponseItem.CreateUserMessageItem(line!));
 
-    var response = await client.CompleteChatAsync(messages);
-    var chatResponse = response.Value.Content.Last().Text;
+    var result = await client.CreateResponseAsync(options);
+    var response = result.Value;
+    previousResponseId = response.Id;
 
-    var usage = response.Value.Usage;
     Console.ForegroundColor = ConsoleColor.Blue;
-    Console.WriteLine("Input tokens: " + usage.InputTokenCount);
-    Console.WriteLine("Output tokens: " + usage.OutputTokenCount);
+    Console.WriteLine($"Input tokens: {response.Usage.InputTokenCount}");
+    Console.WriteLine($"Output tokens: {response.Usage.OutputTokenCount}");
     Console.ResetColor();
 
     Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine(chatResponse);
+    Console.WriteLine(response.GetOutputText());
     Console.ResetColor();
-
-    messages.Add(new AssistantChatMessage(chatResponse));
 }
