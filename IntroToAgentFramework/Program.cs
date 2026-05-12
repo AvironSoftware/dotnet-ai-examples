@@ -40,7 +40,7 @@ services.AddScoped<AIAgent>(sp =>
 
 var serviceProvider = services.BuildServiceProvider();
 var agent = serviceProvider.GetRequiredService<AIAgent>();
-var session = await agent.GetNewSessionAsync();
+var session = await agent.CreateSessionAsync();
 
 Console.ForegroundColor = ConsoleColor.Cyan;
 Console.WriteLine("Say something to OpenAI and book your restaurant!");

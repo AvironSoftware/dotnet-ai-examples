@@ -3,9 +3,7 @@ using OpenAI.Responses;
 #pragma warning disable OPENAI001
 
 var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
-var client = new ResponsesClient(
-    model: "gpt-4o",
-    apiKey: apiKey);
+var client = new ResponsesClient(apiKey);
 
 Console.ForegroundColor = ConsoleColor.Cyan;
 Console.WriteLine("I'm OpenAI, ask me anything!");
@@ -23,9 +21,10 @@ while (true)
 
     var options = new CreateResponseOptions
     {
+        Model = "gpt-4o",
         PreviousResponseId = previousResponseId
     };
-    //options.Tools.Add(ResponseTool.CreateWebSearchTool());
+    options.Tools.Add(ResponseTool.CreateWebSearchTool());
     options.InputItems.Add(ResponseItem.CreateUserMessageItem(line!));
 
     var result = await client.CreateResponseAsync(options);

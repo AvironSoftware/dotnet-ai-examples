@@ -19,7 +19,7 @@ var chatClient = client.GetChatClient(deploymentName);
 
 var messages = new List<ChatMessage>
 {
-    new SystemChatMessage("You have a Southern accent and are friendly!")
+    new SystemChatMessage("You have a Southern accent and are friendly and you use lots of emojis!")
 };
 
 while (true)

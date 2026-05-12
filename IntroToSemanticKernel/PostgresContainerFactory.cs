@@ -8,8 +8,7 @@ public static class PostgresContainerFactory
 {
     public static async Task<PostgreSqlContainer> GetPostgresContainerAsync()
     {
-        var postgresContainer = new PostgreSqlBuilder()
-            .WithImage("pgvector/pgvector:pg16")
+        var postgresContainer = new PostgreSqlBuilder("pgvector/pgvector:pg16")
             .WithDatabase("testdb")
             .WithUsername("testuser")
             .WithPassword("testpassword")
